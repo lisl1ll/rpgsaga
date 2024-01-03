@@ -2,15 +2,14 @@ import { GameLogic } from "./gameLogic";
 
 class Game {
     private isPlaying = true;
-
+    private gameLogic = new GameLogic();
     constructor() {}
 
     public gameLoop() {
-        const gameLogic = new GameLogic();
         try {
             while(this.isPlaying) {
-                gameLogic.createPlayers(4);
-                console.log(gameLogic.createdPlayers);
+                this.gameLogic.createPlayers(4);
+                this.gameLogic.startFight();
                 this.isPlaying = false;
             }
         } catch(err: any) {

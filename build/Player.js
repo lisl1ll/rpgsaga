@@ -7,8 +7,16 @@ class Player {
         this.hp = hp;
         this.strenght = strenght;
     }
-    attack(attacker, beaten) {
-        beaten.hp -= attacker.strenght;
+    attack(beaten) {
+        beaten.hp -= this.strenght;
+    }
+    checkDeath() {
+        if (this.hp <= 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }
 exports.Player = Player;

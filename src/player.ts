@@ -9,7 +9,15 @@ export abstract class Player {
         this.strenght = strenght;
     }
     
-    public attack(attacker: Player, beaten: Player) {
-        beaten.hp -= attacker.strenght;
+    public attack(beaten: Player) {
+        beaten.hp -= this.strenght;
+    }
+
+    public checkDeath() {
+        if(this.hp <= 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

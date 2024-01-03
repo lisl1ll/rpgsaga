@@ -4,13 +4,13 @@ const gameLogic_1 = require("./gameLogic");
 class Game {
     constructor() {
         this.isPlaying = true;
+        this.gameLogic = new gameLogic_1.GameLogic();
     }
     gameLoop() {
-        const gameLogic = new gameLogic_1.GameLogic();
         try {
             while (this.isPlaying) {
-                gameLogic.createPlayers(4);
-                console.log(gameLogic.createdPlayers);
+                this.gameLogic.createPlayers(4);
+                this.gameLogic.startFight();
                 this.isPlaying = false;
             }
         }
