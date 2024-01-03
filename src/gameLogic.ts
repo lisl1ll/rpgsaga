@@ -1,7 +1,9 @@
-import { Logger } from "./Logger";
-import { Player } from "./Player";
+import { Logger } from "./logger";
+import { Player } from "./player";
 import { PlayerFabric } from "./playerFabric";
 import { PlayerClass } from "./types";
+
+interface IPlayersForFight { p1: Player, p2: Player, p1Index: number, p2Index: number, };
 
 export class GameLogic {
     private playerFabric = new PlayerFabric();
@@ -24,13 +26,17 @@ export class GameLogic {
     }
 
     public startFight() {
-        const playersToFight = this.pickPlayersForFight();
-        Logger.logPlayersNameAndClass(playersToFight.p1, playersToFight.p2)
-
-        this.fight(playersToFight.p1, playersToFight.p2);
+        while(this.createdPlayers.length !== 1) {
+            const playersToFight = this.pickPlayersForFight();
+            Logger.logPlayersNameAndClass(playersToFight.p1, playersToFight.p2)
+            console.log(this.createdPlayers);
+            this.fight(playersToFight.p1, playersToFight.p2, playersToFight.p1Index, playersToFight.p2Index);
+        }
+        
+        Logger.logWinner(this.createdPlayers[0]);
     }
 
-    private fight(p1: Player, p2: Player) {
+    private fight(p1: Player, p2: Player, p1Index: number, p2Index: number) {
         let playerToAttack = Math.floor(Math.random() * 2);
 
         let p1IsDead = p1.checkDeath();
@@ -52,12 +58,30 @@ export class GameLogic {
 
         if(p1IsDead) {
             Logger.logPlayerIsDead(p1);
+            this.createdPlayers.splice(p1Index, 1);
+            p2.hp = p2.startHp;
         } else {
             Logger.logPlayerIsDead(p2);
+            this.createdPlayers.splice(p2Index, 1);
+            p1.hp = p1.startHp;
         }
     }
 
-    private pickPlayersForFight(): { p1: Player, p2: Player } {
+    private rollSpecialAttack() {
+        return Math.random() > 0.5 ? true : false;
+    }
+
+    private useSpecialAttack(p1: Player, p2: Player) {
+        if(p1.constructor.name === 'knight') {
+            p1.specialAttack()
+        } else if(p1.constructor.name === 'mage') {
+            p1.specialAttack(p2);
+        } else if(p1.constructor.name === 'archer') {
+            p1.specialAttack();
+        }
+    }
+
+    private pickPlayersForFight(): IPlayersForFight {
         let randomFirstPlayerIndex = Math.floor(Math.random() * this.createdPlayers.length);
         let randomSecondPlayerIndex = Math.floor(Math.random() * this.createdPlayers.length);
 
@@ -71,6 +95,8 @@ export class GameLogic {
         return {
             p1: firstPlayer,
             p2: secondPlayer,
+            p1Index: randomFirstPlayerIndex,
+            p2Index: randomSecondPlayerIndex,
         };
     }
 }

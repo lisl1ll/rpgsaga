@@ -1,4 +1,4 @@
-import { Player } from "./Player";
+import { Player } from "./player";
 
 export class Logger {
     constructor() {}
@@ -17,5 +17,9 @@ export class Logger {
 
     public static logPlayerIsDead(p: Player) {
         console.log(`(${p.constructor.name}) ${p.name} is dead\n`);
+    }
+
+    public static logWinner(p: Player) {
+        console.log(`(${p.constructor.name}) ${p.name} is the winner♥\n`);
     }
 }

@@ -17,5 +17,8 @@ class Logger {
     static logPlayerIsDead(p) {
         console.log(`(${p.constructor.name}) ${p.name} is dead\n`);
     }
+    static logWinner(p) {
+        console.log(`(${p.constructor.name}) ${p.name} is the winner♥\n`);
+    }
 }
 exports.Logger = Logger;

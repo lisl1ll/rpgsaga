@@ -1,4 +1,4 @@
-import { Player } from "./Player";
+import { Player } from "./player";
 import { Archer, Knight, Mage } from "./playableCharacters";
 import { PlayerClass } from "./types";
 

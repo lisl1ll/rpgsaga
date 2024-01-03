@@ -6,6 +6,9 @@ class Player {
         this.name = name;
         this.hp = hp;
         this.strenght = strenght;
+        this.startHp = hp;
+        this.startStrength = strenght;
+        this.move = true;
     }
     attack(beaten) {
         beaten.hp -= this.strenght;
