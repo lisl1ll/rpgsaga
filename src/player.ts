@@ -6,7 +6,9 @@ export abstract class Player {
     public startHp: number;
     public startStrength: number;
 
-    public move: boolean;
+    public stun: boolean;
+
+    public specialAttackName: string = '';
 
     constructor(name: string, hp: number, strenght: number) {
         this.name = name;
@@ -14,7 +16,7 @@ export abstract class Player {
         this.strenght = strenght;
         this.startHp = hp;
         this.startStrength = strenght;
-        this.move = true;
+        this.stun = false;
     }
     
     public attack(beaten: Player) {
@@ -27,6 +29,10 @@ export abstract class Player {
         } else {
             return false;
         }
+    }
+
+    public checkStun() {
+        return this.stun;
     }
 
     public abstract specialAttack(beaten?: Player): any;
