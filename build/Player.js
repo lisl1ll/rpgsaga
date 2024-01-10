@@ -13,6 +13,7 @@ class Player {
     }
     attack(beaten) {
         beaten.hp -= this.strenght;
+        return beaten.hp;
     }
     checkDeath() {
         if (this.hp <= 0) {

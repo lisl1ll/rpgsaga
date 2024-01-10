@@ -21,6 +21,7 @@ export abstract class Player {
     
     public attack(beaten: Player) {
         beaten.hp -= this.strenght;
+        return beaten.hp;
     }
 
     public checkDeath() {
