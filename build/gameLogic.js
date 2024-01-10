@@ -32,7 +32,6 @@ class GameLogic {
         let playerToAttack = Math.floor(Math.random() * 2);
         let p1IsDead = p1.checkDeath();
         let p2IsDead = p2.checkDeath();
-        console.log(p1.name, p1.stun, p2.name, p2.stun);
         while (!p1IsDead && !p2IsDead) {
             if (playerToAttack === 1) {
                 if (p1.checkStun()) {
@@ -43,7 +42,6 @@ class GameLogic {
                 else {
                     const isSpecialAttack = this.rollSpecialAttack();
                     if (isSpecialAttack) {
-                        console.log(p1.name, p1.stun, p2.name, p2.stun);
                         this.useSpecialAttack(p1, p2, playerToAttack);
                     }
                     else {
@@ -62,7 +60,6 @@ class GameLogic {
                 else {
                     const isSpecialAttack = this.rollSpecialAttack();
                     if (isSpecialAttack) {
-                        console.log(p1.name, p1.stun, p2.name, p2.stun);
                         this.useSpecialAttack(p1, p2, playerToAttack);
                     }
                     else {
