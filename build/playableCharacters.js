@@ -18,10 +18,7 @@ class Mage extends player_1.Player {
         this.specialAttackName = 'Stun';
     }
     specialAttack(beaten) {
-        console.log('here 1');
-        console.log(beaten);
         beaten.stun = true;
-        console.log('here 2');
     }
 }
 exports.Mage = Mage;
