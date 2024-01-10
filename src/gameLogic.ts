@@ -40,7 +40,7 @@ export class GameLogic {
 
         let p1IsDead = p1.checkDeath();
         let p2IsDead = p2.checkDeath();
-
+        console.log(p1.name, p1.stun, p2.name, p2.stun);
         while(!p1IsDead && !p2IsDead) {
             if(playerToAttack === 1) {
                 if(p1.checkStun()) {
@@ -50,6 +50,7 @@ export class GameLogic {
                 } else {
                     const isSpecialAttack = this.rollSpecialAttack();
                     if(isSpecialAttack) {
+                        console.log(p1.name, p1.stun, p2.name, p2.stun);
                         this.useSpecialAttack(p1, p2, playerToAttack);
                     } else {
                         this.defaultAttack(p1, p2, playerToAttack);
@@ -67,6 +68,7 @@ export class GameLogic {
                     const isSpecialAttack = this.rollSpecialAttack();
     
                     if(isSpecialAttack) {
+                        console.log(p1.name, p1.stun, p2.name, p2.stun);
                         this.useSpecialAttack(p1, p2, playerToAttack);
     
                     } else {
@@ -105,38 +107,44 @@ export class GameLogic {
     }
 
     private useSpecialAttack(p1: Player, p2: Player, playerToAttack: number) {
-        if(p1.constructor.name === 'Knight') {
-            if(playerToAttack === 1) {
+        if(playerToAttack === 1) {
+            if(p1.constructor.name === 'Knight') {
                 p1.specialAttack()
                 p1.attack(p2);
                 Logger.logSpecialAttack(p1, p2, playerToAttack);
                 p1.strenght = p1.startStrength;
-            } else {
-                p2.specialAttack()
-                p2.attack(p1);
-                Logger.logSpecialAttack(p1, p2, playerToAttack);
-                p2.strenght = p2.startStrength;
             }
-        } else if(p1.constructor.name === 'Mage') {
-            if(playerToAttack === 1) {
+
+            if(p1.constructor.name === 'Mage') {
                 p1.specialAttack(p2);
                 p1.strenght = 0;
                 Logger.logSpecialAttack(p1, p2, playerToAttack);
                 p1.strenght = p1.startStrength;
-            } else {
-                p2.specialAttack(p1);
-                p2.strenght = 0;
-                Logger.logSpecialAttack(p1, p2, playerToAttack);
-                p2.strenght = p2.startStrength;
             }
-        } else if(p1.constructor.name === 'Archer') {
-            if(playerToAttack === 1) {
+
+            if(p1.constructor.name === 'Archer') {
                 p1.specialAttack();
                 p1.strenght += 2;
                 p1.attack(p2);
                 Logger.logSpecialAttack(p1, p2, playerToAttack);
                 p1.strenght = p1.startStrength;
-            } else {
+            }
+        } else {
+            if(p2.constructor.name === 'Knight') {
+                p2.specialAttack()
+                p2.attack(p1);
+                Logger.logSpecialAttack(p1, p2, playerToAttack);
+                p2.strenght = p2.startStrength;
+            }
+
+            if(p2.constructor.name === 'Mage') {
+                p2.specialAttack(p1);
+                p2.strenght = 0;
+                Logger.logSpecialAttack(p1, p2, playerToAttack);
+                p2.strenght = p2.startStrength;
+            }
+
+            if(p2.constructor.name === 'Archer') {
                 p2.specialAttack();
                 p2.strenght += 2;
                 p2.attack(p1);

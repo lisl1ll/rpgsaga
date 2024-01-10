@@ -18,7 +18,10 @@ export class Mage extends Player {
     }
 
     public specialAttack(beaten: Player) {
+        console.log('here 1');
+        console.log(beaten);
         beaten.stun = true;
+        console.log('here 2');
     }
 }
 
